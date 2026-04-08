@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>План менторства · Senior QA Path</title>
@@ -625,299 +626,175 @@
   }
 
 </style>
+
+<style>
+  /* LOCK SCREEN */
+  #lock-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a3a5c 50%, #0a0a0f 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+  }
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  #lock-screen::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(232,96,10,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(45,125,210,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(42,157,92,0.08) 0%, transparent 40%);
+  }
+  #lock-box {
+    position: relative;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  }
+  #lock-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0.9;
+  }
+  #lock-box h2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #f5f2eb;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  #lock-box p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    color: rgba(245,242,235,0.45);
+    margin-bottom: 32px;
+  }
+  #pwd-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: #f5f2eb;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+  #pwd-input:focus { border-color: rgba(232,96,10,0.6); }
+  #pwd-input.error { border-color: rgba(192,57,43,0.8); animation: shake 0.3s ease; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%     { transform: translateX(-6px); }
+    75%     { transform: translateX(6px); }
+  }
+  #unlock-btn {
+    width: 100%;
+    background: #e8600a;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  #unlock-btn:hover  { background: #d4540a; }
+  #unlock-btn:active { transform: scale(0.98); }
+  #error-msg {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #c0392b;
+    min-height: 16px;
+  }
+  #main-content { display: none; }
+</style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header-tag">Mentorship Program · 2026</div>
-  <h1>Шлях до <span>Senior</span><br>Test Automation<br>Engineer</h1>
-  <div class="header-meta">
-    <div class="meta-item">
-      <span class="meta-label">Учасник</span>
-      <span class="meta-value">Tetiana</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label">Тривалість</span>
-      <span class="meta-value">10 зустрічей · ~3 місяці</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label">Стек</span>
-      <span class="meta-value">Python · Playwright · TypeScript · k6 · OWASP</span>
-    </div>
-    <div class="meta-item">
-      <span class="meta-label">Ціль</span>
-      <span class="meta-value">Senior-рівень · фріланс-готовність</span>
-    </div>
-  </div>
-</header>
-
-<div class="north-star">
-  <div class="ns-label">★ North Star Metric</div>
-  <div class="ns-text">
-    Побудувати <strong>Senior-мікс експертизу</strong>: поглибити Python/Desktop як основу поточної роботи та розширити стек через Pet-проєкт на <strong>Playwright (TypeScript)</strong> з інтеграцією <strong>k6 (Performance)</strong> та <strong>OWASP (Security)</strong> — щоб вийти на ринок як архітектор тестування, а не просто виконавець.
+<div id="lock-screen">
+  <div id="lock-box">
+    <span id="lock-icon">🔒</span>
+    <h2>Захищений контент</h2>
+    <p>Введи пароль для доступу</p>
+    <input id="pwd-input" type="password" placeholder="••••••••••••" autocomplete="current-password" />
+    <button id="unlock-btn" onclick="unlock()">Увійти</button>
+    <div id="error-msg"></div>
   </div>
 </div>
 
-<div class="content">
+<div id="main-content"></div>
 
-  <!-- TIMELINE BAR -->
-  <div class="timeline-bar">
-    <div class="timeline-label">Розподіл зустрічей по блоках</div>
-    <div class="tl-track">
-      <div class="tl-seg" style="flex:3; background:var(--stage1);"></div>
-      <div class="tl-seg" style="flex:2; background:var(--stage2);"></div>
-      <div class="tl-seg" style="flex:3; background:var(--stage3);"></div>
-      <div class="tl-seg" style="flex:1; background:var(--stage4);"></div>
-      <div class="tl-seg" style="flex:1; background:var(--stage5);"></div>
-    </div>
-    <div class="tl-labels">
-      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage1)"></div>1. Python + Desktop (3)</div>
-      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage2)"></div>2. Playwright + TS (2)</div>
-      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage3)"></div>3. Perf + Security (3)</div>
-      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage4)"></div>4. Code Review (1)</div>
-      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage5)"></div>4. Senior Interview (1)</div>
-    </div>
-  </div>
+<script>
+const PAYLOAD = {"salt":"oQySDqJrXuUjJ3cOKacTkw==","iv":"8ARxZoPu5AkTyQXv","tag":"rVakh0p2p3+ncNGkfxWvRQ==","data":"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"};
 
-  <!-- ROADMAP -->
-  <div class="section-title">Детальний план зустрічей</div>
-  <div class="roadmap">
+async function unlock() {
+  const pwd = document.getElementById('pwd-input').value;
+  const input = document.getElementById('pwd-input');
+  const errMsg = document.getElementById('error-msg');
+  errMsg.textContent = '';
 
-    <!-- Stage I -->
-    <div class="stage s1">
-      <div class="stage-header">
-        <div class="stage-num">1</div>
-        <div>
-          <span class="stage-label">Блок перший</span>
-          <div class="stage-name">Глибокий Python та Desktop</div>
-        </div>
-      </div>
-      <div class="meetings">
-        <div class="meeting-card">
-          <div class="meeting-num">01</div>
-          <div>
-            <div class="meeting-title">Архітектура Custom Libraries</div>
-            <div class="meeting-desc">Як писати код, який легко підтримувати. Декоратори @keyword, типізація, структура проєкту. Вибір підходу Static vs Hybrid API.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Затверджена архітектура фреймворку та перший прототип CommonUtils.py</div>
-          </div>
-          <div class="meeting-badge">Зустріч 1</div>
-        </div>
-        <div class="meeting-card">
-          <div class="meeting-num">02</div>
-          <div>
-            <div class="meeting-title">Desktop Automation (FlaUI/WinAppDriver)</div>
-            <div class="meeting-desc">Специфіка "заліза". Python-обгортки над WinAppDriver та FlaUI. Стратегії стабільного знаходження елементів UI, які не бачать стандартні ліби.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Стабільний UI-тест на Desktop з кастомною Python-бібліотекою</div>
-          </div>
-          <div class="meeting-badge">Зустріч 2</div>
-        </div>
-        <div class="meeting-card">
-          <div class="meeting-num">03</div>
-          <div>
-            <div class="meeting-title">Security (OWASP) в Automation</div>
-            <div class="meeting-desc">Як автоматизувати перевірку вразливостей засобами Python/Robot Framework: SQL Injection, перевірка заголовків, XSS-сценарії на практиці.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Перші security-тести інтегровані в існуючий RF-фреймворк</div>
-          </div>
-          <div class="meeting-badge">Зустріч 3</div>
-        </div>
-      </div>
-    </div>
+  try {
+    const salt = base64ToBytes(PAYLOAD.salt);
+    const iv   = base64ToBytes(PAYLOAD.iv);
+    const tag  = base64ToBytes(PAYLOAD.tag);
+    const data = base64ToBytes(PAYLOAD.data);
 
-    <!-- Stage II -->
-    <div class="stage s2">
-      <div class="stage-header">
-        <div class="stage-num">2</div>
-        <div>
-          <span class="stage-label">Блок другий</span>
-          <div class="stage-name">Розширення стеку: Playwright + TypeScript</div>
-        </div>
-      </div>
-      <div class="meetings">
-        <div class="meeting-card">
-          <div class="meeting-num">04</div>
-          <div>
-            <div class="meeting-title">Playwright + TypeScript: швидкий старт</div>
-            <div class="meeting-desc">Чому ринок хоче саме Playwright+TS? Запуск Pet-проєкту. Порівняння архітектурних підходів із досвідом у Robot Framework.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Перший Playwright-тест на TypeScript, Pet-проєкт задеплоєний локально</div>
-          </div>
-          <div class="meeting-badge">Зустріч 4</div>
-        </div>
-        <div class="meeting-card">
-          <div class="meeting-num">05</div>
-          <div>
-            <div class="meeting-title">Складна логіка в Playwright</div>
-            <div class="meeting-desc">Network interception — перехоплення та мокування запитів. Робота з декількома контекстами та сесіями. Auth-стани та storage.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Pet-проєкт охоплює API-мокування та мульти-сесійні сценарії</div>
-          </div>
-          <div class="meeting-badge">Зустріч 5</div>
-        </div>
-      </div>
-    </div>
+    // Derive key
+    const rawKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveKey']);
+    const aesKey = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+      rawKey,
+      { name: 'AES-GCM', length: 256 },
+      false, ['decrypt']
+    );
 
-    <!-- Stage III -->
-    <div class="stage s3">
-      <div class="stage-header">
-        <div class="stage-num">3</div>
-        <div>
-          <span class="stage-label">Блок третій</span>
-          <div class="stage-name">Performance та Security (High Level)</div>
-        </div>
-      </div>
-      <div class="meetings">
-        <div class="meeting-card">
-          <div class="meeting-num">06</div>
-          <div>
-            <div class="meeting-title">Performance з k6</div>
-            <div class="meeting-desc">Написання перших скриптів на JavaScript для k6. Як тестувати навантаження API свого Pet-проєкту. Метрики: throughput, latency, error rate.</div>
-            <div class="deliverable"><strong>Deliverable</strong>k6 load-тест для API Pet-проєкту з HTML-звітом</div>
-          </div>
-          <div class="meeting-badge">Зустріч 6</div>
-        </div>
-        <div class="meeting-card">
-          <div class="meeting-num">07</div>
-          <div>
-            <div class="meeting-title">OWASP Top 10 на практиці</div>
-            <div class="meeting-desc">Автоматизоване DAST-сканування через інтеграцію Playwright + OWASP ZAP. Від теорії до реальних автоматизованих перевірок вразливостей.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Playwright + ZAP pipeline, що автоматично виявляє вразливості OWASP</div>
-          </div>
-          <div class="meeting-badge">Зустріч 7</div>
-        </div>
-        <div class="meeting-card">
-          <div class="meeting-num">08</div>
-          <div>
-            <div class="meeting-title">CI/CD для повного стеку</div>
-            <div class="meeting-desc">Як запустити Playwright та k6 в одному пайплайні (GitHub Actions / GitLab CI). Автоматична генерація звітів. Сповіщення про падіння.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Єдиний CI/CD pipeline: E2E + Performance + Security в одному запуску</div>
-          </div>
-          <div class="meeting-badge">Зустріч 8</div>
-        </div>
-      </div>
-    </div>
+    // Combine data + tag for AES-GCM
+    const combined = new Uint8Array(data.length + tag.length);
+    combined.set(data); combined.set(tag, data.length);
 
-    <!-- Stage IV -->
-    <div class="stage s4">
-      <div class="stage-header">
-        <div class="stage-num">4</div>
-        <div>
-          <span class="stage-label">Блок четвертий</span>
-          <div class="stage-name">Фіналізація та Senior-чек</div>
-        </div>
-      </div>
-      <div class="meetings">
-        <div class="meeting-card">
-          <div class="meeting-num">09</div>
-          <div>
-            <div class="meeting-title">Code Review Pet-проєкту ментором</div>
-            <div class="meeting-desc">Глибокий аудит коду: архітектурні рішення, читабельність, підтримуваність. Оптимізація підходів. Gap-аналіз до Senior-рівня.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Відрефакторений Pet-проєкт + список точок росту</div>
-          </div>
-          <div class="meeting-badge">Зустріч 9</div>
-        </div>
-        <div class="meeting-card">
-          <div class="meeting-num">10</div>
-          <div>
-            <div class="meeting-title">Імітація Senior-співбесіди</div>
-            <div class="meeting-desc">Як "продати" свій досвід із залізом, безпекою та навантаженням. Підготовка відповідей на архітектурні питання. Roadmap на наступні 6 місяців.</div>
-            <div class="deliverable"><strong>Deliverable</strong>Готовність до Senior-інтерв'ю та план самостійного розвитку</div>
-          </div>
-          <div class="meeting-badge">Зустріч 10</div>
-        </div>
-      </div>
-    </div>
+    const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, combined);
+    const html = new TextDecoder().decode(decrypted);
 
-  </div>
+    document.getElementById('main-content').innerHTML = html;
+    document.getElementById('main-content').style.display = 'block';
+    document.getElementById('lock-screen').style.display = 'none';
+  } catch {
+    input.classList.add('error');
+    setTimeout(() => input.classList.remove('error'), 500);
+    errMsg.textContent = 'Невірний пароль';
+    input.value = '';
+    input.focus();
+  }
+}
 
-  <!-- QUESTIONS -->
-  <div class="section-title">Питання на першу зустріч</div>
-  <div class="questions-grid">
-    <div class="q-card">
-      <div class="q-num">Q1</div>
-      <div class="q-topic">Архітектура</div>
-      <div class="q-text">Як краще організувати структуру папок, щоб Python-код був ізольований від .robot файлів, але легко імпортувався?</div>
-    </div>
-    <div class="q-card">
-      <div class="q-num">Q2</div>
-      <div class="q-topic">Best Practices</div>
-      <div class="q-text">Яких антипатернів у написанні Custom Libraries варто уникати на старті?</div>
-    </div>
-    <div class="q-card">
-      <div class="q-num">Q3</div>
-      <div class="q-topic">Pet-проєкт</div>
-      <div class="q-text">Чи зможемо побудувати навчання так, щоб Playwright, k6 та OWASP не йшли окремо, а доповнювали архітектурний підхід?</div>
-    </div>
-    <div class="q-card">
-      <div class="q-num">Q4</div>
-      <div class="q-topic">Hardware</div>
-      <div class="q-text">Чи є досвід тестування залізного рівня, і які Python-бібліотеки вважаються стандартом для embedded/hardware інтеграцій?</div>
-    </div>
-  </div>
+function base64ToBytes(b64) {
+  return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+}
 
-  <!-- GOALS -->
-  <div class="section-title">Глобальні цілі на рік</div>
-  <div class="goals-row">
-    <div class="goal-card">
-      <div class="goal-icon">📈</div>
-      <div class="goal-title">Senior Market Rate</div>
-      <div class="goal-desc">Підвищення ринкової вартості до рівня Senior QA Automation Engineer. Цільовий приріст чеку +30–50%.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-icon">🔐</div>
-      <div class="goal-title">Security + Performance</div>
-      <div class="goal-desc">Практичний досвід OWASP ZAP DAST-сканування та k6 навантажувального тестування — як частина єдиного CI/CD pipeline.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-icon">🏅</div>
-      <div class="goal-title">Freelance-готовність</div>
-      <div class="goal-desc">Pet-проєкт на Playwright (TypeScript) як портфоліо для фрілансу. Готовність брати проєкти будь-якої складності: Desktop, Web, Embedded.</div>
-    </div>
-  </div>
-
-  <!-- SUMMARY -->
-  <div class="section-title">Резюме плану</div>
-  <div class="summary-block">
-    <div class="summary-left">
-      <div class="summary-name">Tetiana</div>
-      <div class="summary-role">Middle → Senior Test Automation Engineer</div>
-      <div class="summary-tags">
-        <span class="stag">Robot Framework</span>
-        <span class="stag">Python</span>
-        <span class="stag">Playwright</span>
-        <span class="stag">TypeScript</span>
-        <span class="stag">k6</span>
-        <span class="stag">OWASP</span>
-        <span class="stag">Desktop</span>
-        <span class="stag">CI/CD</span>
-      </div>
-    </div>
-    <div class="summary-right">
-      <div class="summary-stat">
-        <div class="sstat-val">10</div>
-        <div class="sstat-label">зустрічей</div>
-      </div>
-      <div class="summary-stat">
-        <div class="sstat-val">4</div>
-        <div class="sstat-label">блоки</div>
-      </div>
-      <div class="summary-stat">
-        <div class="sstat-val">3</div>
-        <div class="sstat-label">місяці</div>
-      </div>
-      <div class="summary-stat">
-        <div class="sstat-val">+50%</div>
-        <div class="sstat-label">цільовий чек</div>
-      </div>
-    </div>
-    <div class="summary-desc">
-      Починаємо з кастомних <strong>Python-бібліотек</strong> та Desktop/Hardware — як основи поточної роботи. Паралельно будуємо Pet-проєкт на <strong>Playwright (TypeScript)</strong>, де практикуємо <strong>k6</strong> для навантажувального тестування та <strong>OWASP ZAP</strong> для security. Усе зав'язуємо в єдиний <strong>CI/CD pipeline</strong> і закриваємо фінальною імітацією Senior-співбесіди.
-    </div>
-  </div>
-
-</div>
-
-<footer class="footer">
-  <span>Senior QA Path · Mentorship Plan 2026</span>
-  <span>Python · Robot Framework · Playwright · TypeScript · k6 · OWASP</span>
-</footer>
-
+document.getElementById('pwd-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') unlock();
+});
+</script>
 </body>
 </html>
