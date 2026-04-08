@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План менторства · Senior QA Path</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2eb;
+    --accent: #e8600a;
+    --accent2: #1a3a5c;
+    --muted: #8a8478;
+    --line: #d4cfc4;
+    --stage1: #e8600a;
+    --stage2: #2d7dd2;
+    --stage3: #2a9d5c;
+    --stage4: #9b4dca;
+    --stage5: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 60px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: 'QA';
+    position: absolute;
+    right: -20px;
+    top: -30px;
+    font-size: 220px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .header-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--paper);
+  }
+
+  /* NORTH STAR */
+  .north-star {
+    background: var(--accent);
+    color: white;
+    padding: 40px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .north-star::after {
+    content: '★';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 80px;
+    opacity: 0.15;
+  }
+
+  .ns-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.8;
+    margin-bottom: 12px;
+  }
+
+  .ns-text {
+    font-size: clamp(15px, 2.5vw, 18px);
+    font-weight: 600;
+    line-height: 1.5;
+    max-width: 740px;
+  }
+
+  .ns-text strong {
+    background: rgba(255,255,255,0.25);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  /* MAIN CONTENT */
+  .content {
+    padding: 56px 48px;
+    max-width: 1100px;
+  }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    max-width: 300px;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 40px;
+    bottom: 40px;
+    width: 2px;
+    background: var(--line);
+  }
+
+  .stage {
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0 12px;
+    cursor: pointer;
+  }
+
+  .stage-num {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s;
+  }
+
+  .stage:hover .stage-num { transform: scale(1.08); }
+
+  .stage-label {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .stage-name {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  /* Stage colors */
+  .s1 .stage-num { background: var(--stage1); color: white; }
+  .s2 .stage-num { background: var(--stage2); color: white; }
+  .s3 .stage-num { background: var(--stage3); color: white; }
+  .s4 .stage-num { background: var(--stage4); color: white; }
+  .s5 .stage-num { background: var(--stage5); color: white; }
+
+  .s1 .stage-name { color: var(--stage1); }
+  .s2 .stage-name { color: var(--stage2); }
+  .s3 .stage-name { color: var(--stage3); }
+  .s4 .stage-name { color: var(--stage4); }
+  .s5 .stage-name { color: var(--stage5); }
+
+  .meetings {
+    margin-left: 78px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 16px;
+  }
+
+  .meeting-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    border: 1px solid var(--line);
+    transition: box-shadow 0.2s, transform 0.2s;
+    animation: fadeSlide 0.4s ease both;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .meeting-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    transform: translateX(4px);
+  }
+
+  .meeting-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--line);
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .meeting-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .meeting-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .meeting-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .s1 .meeting-badge { background: rgba(232,96,10,0.1); color: var(--stage1); }
+  .s2 .meeting-badge { background: rgba(45,125,210,0.1); color: var(--stage2); }
+  .s3 .meeting-badge { background: rgba(42,157,92,0.1); color: var(--stage3); }
+  .s4 .meeting-badge { background: rgba(155,77,202,0.1); color: var(--stage4); }
+  .s5 .meeting-badge { background: rgba(192,57,43,0.1); color: var(--stage5); }
+
+  .deliverable {
+    grid-column: 2 / -1;
+    background: var(--paper);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--ink);
+    border-left: 3px solid var(--line);
+    margin-top: 4px;
+  }
+
+  .deliverable strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* QUESTIONS */
+  .questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .q-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 24px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  .q-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .q-topic {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .q-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* GOALS */
+  .goals-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .goal-card {
+    padding: 28px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: white;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .goal-card:hover { transform: translateY(-3px); }
+
+  .goal-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .goal-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .goal-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* TIMELINE BAR */
+  .timeline-bar {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 64px;
+  }
+
+  .timeline-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .tl-track {
+    display: flex;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .tl-seg {
+    height: 100%;
+    transition: flex 0.3s;
+  }
+
+  .tl-labels {
+    display: flex;
+    gap: 0;
+  }
+
+  .tl-ll {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+
+  .tl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* TIP BOX */
+  .tip-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 10px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 48px;
+  }
+
+  .tip-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .tip-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(245,242,235,0.85);
+  }
+
+  .tip-text strong {
+    color: var(--accent);
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--line);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 700px) {
+    .header, .content, .footer { padding-left: 24px; padding-right: 24px; }
+    .north-star { padding: 32px 24px; }
+    .questions-grid, .goals-row { grid-template-columns: 1fr; }
+    .meeting-card { grid-template-columns: 36px 1fr; }
+    .meeting-badge { display: none; }
+    .meetings { margin-left: 46px; }
+    .roadmap::before { left: 18px; }
+    .tl-labels { flex-wrap: wrap; }
+  }
+  /* SUMMARY BLOCK */
+  .summary-block {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 12px;
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 24px 40px;
+    margin-bottom: 48px;
+    align-items: start;
+  }
+
+  .summary-left { grid-column: 1; grid-row: 1; }
+  .summary-right {
+    grid-column: 2; grid-row: 1;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  .summary-desc {
+    grid-column: 1 / -1; grid-row: 2;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(245,242,235,0.75);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+  }
+  .summary-desc strong { color: var(--accent); }
+
+  .summary-name {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .summary-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .summary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .stag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(245,242,235,0.7);
+    letter-spacing: 0.05em;
+  }
+
+  .summary-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sstat-val {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--paper);
+    line-height: 1;
+  }
+
+  .sstat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(245,242,235,0.4);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .summary-block { grid-template-columns: 1fr; }
+    .summary-right { grid-column: 1; grid-row: 2; flex-wrap: wrap; }
+    .summary-desc { grid-row: 3; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-tag">Mentorship Program · 2026</div>
+  <h1>Шлях до <span>Senior</span><br>Test Automation<br>Engineer</h1>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Учасник</span>
+      <span class="meta-value">Tetiana</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Тривалість</span>
+      <span class="meta-value">10 зустрічей · ~3 місяці</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Стек</span>
+      <span class="meta-value">Python · Playwright · TypeScript · k6 · OWASP</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Ціль</span>
+      <span class="meta-value">Senior-рівень · фріланс-готовність</span>
+    </div>
+  </div>
+</header>
+
+<div class="north-star">
+  <div class="ns-label">★ North Star Metric</div>
+  <div class="ns-text">
+    Побудувати <strong>Senior-мікс експертизу</strong>: поглибити Python/Desktop як основу поточної роботи та розширити стек через Pet-проєкт на <strong>Playwright (TypeScript)</strong> з інтеграцією <strong>k6 (Performance)</strong> та <strong>OWASP (Security)</strong> — щоб вийти на ринок як архітектор тестування, а не просто виконавець.
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TIMELINE BAR -->
+  <div class="timeline-bar">
+    <div class="timeline-label">Розподіл зустрічей по блоках</div>
+    <div class="tl-track">
+      <div class="tl-seg" style="flex:3; background:var(--stage1);"></div>
+      <div class="tl-seg" style="flex:2; background:var(--stage2);"></div>
+      <div class="tl-seg" style="flex:3; background:var(--stage3);"></div>
+      <div class="tl-seg" style="flex:1; background:var(--stage4);"></div>
+      <div class="tl-seg" style="flex:1; background:var(--stage5);"></div>
+    </div>
+    <div class="tl-labels">
+      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage1)"></div>1. Python + Desktop (3)</div>
+      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage2)"></div>2. Playwright + TS (2)</div>
+      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage3)"></div>3. Perf + Security (3)</div>
+      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage4)"></div>4. Code Review (1)</div>
+      <div class="tl-ll"><div class="tl-dot" style="background:var(--stage5)"></div>4. Senior Interview (1)</div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section-title">Детальний план зустрічей</div>
+  <div class="roadmap">
+
+    <!-- Stage I -->
+    <div class="stage s1">
+      <div class="stage-header">
+        <div class="stage-num">1</div>
+        <div>
+          <span class="stage-label">Блок перший</span>
+          <div class="stage-name">Глибокий Python та Desktop</div>
+        </div>
+      </div>
+      <div class="meetings">
+        <div class="meeting-card">
+          <div class="meeting-num">01</div>
+          <div>
+            <div class="meeting-title">Архітектура Custom Libraries</div>
+            <div class="meeting-desc">Як писати код, який легко підтримувати. Декоратори @keyword, типізація, структура проєкту. Вибір підходу Static vs Hybrid API.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Затверджена архітектура фреймворку та перший прототип CommonUtils.py</div>
+          </div>
+          <div class="meeting-badge">Зустріч 1</div>
+        </div>
+        <div class="meeting-card">
+          <div class="meeting-num">02</div>
+          <div>
+            <div class="meeting-title">Desktop Automation (FlaUI/WinAppDriver)</div>
+            <div class="meeting-desc">Специфіка "заліза". Python-обгортки над WinAppDriver та FlaUI. Стратегії стабільного знаходження елементів UI, які не бачать стандартні ліби.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Стабільний UI-тест на Desktop з кастомною Python-бібліотекою</div>
+          </div>
+          <div class="meeting-badge">Зустріч 2</div>
+        </div>
+        <div class="meeting-card">
+          <div class="meeting-num">03</div>
+          <div>
+            <div class="meeting-title">Security (OWASP) в Automation</div>
+            <div class="meeting-desc">Як автоматизувати перевірку вразливостей засобами Python/Robot Framework: SQL Injection, перевірка заголовків, XSS-сценарії на практиці.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Перші security-тести інтегровані в існуючий RF-фреймворк</div>
+          </div>
+          <div class="meeting-badge">Зустріч 3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage II -->
+    <div class="stage s2">
+      <div class="stage-header">
+        <div class="stage-num">2</div>
+        <div>
+          <span class="stage-label">Блок другий</span>
+          <div class="stage-name">Розширення стеку: Playwright + TypeScript</div>
+        </div>
+      </div>
+      <div class="meetings">
+        <div class="meeting-card">
+          <div class="meeting-num">04</div>
+          <div>
+            <div class="meeting-title">Playwright + TypeScript: швидкий старт</div>
+            <div class="meeting-desc">Чому ринок хоче саме Playwright+TS? Запуск Pet-проєкту. Порівняння архітектурних підходів із досвідом у Robot Framework.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Перший Playwright-тест на TypeScript, Pet-проєкт задеплоєний локально</div>
+          </div>
+          <div class="meeting-badge">Зустріч 4</div>
+        </div>
+        <div class="meeting-card">
+          <div class="meeting-num">05</div>
+          <div>
+            <div class="meeting-title">Складна логіка в Playwright</div>
+            <div class="meeting-desc">Network interception — перехоплення та мокування запитів. Робота з декількома контекстами та сесіями. Auth-стани та storage.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Pet-проєкт охоплює API-мокування та мульти-сесійні сценарії</div>
+          </div>
+          <div class="meeting-badge">Зустріч 5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage III -->
+    <div class="stage s3">
+      <div class="stage-header">
+        <div class="stage-num">3</div>
+        <div>
+          <span class="stage-label">Блок третій</span>
+          <div class="stage-name">Performance та Security (High Level)</div>
+        </div>
+      </div>
+      <div class="meetings">
+        <div class="meeting-card">
+          <div class="meeting-num">06</div>
+          <div>
+            <div class="meeting-title">Performance з k6</div>
+            <div class="meeting-desc">Написання перших скриптів на JavaScript для k6. Як тестувати навантаження API свого Pet-проєкту. Метрики: throughput, latency, error rate.</div>
+            <div class="deliverable"><strong>Deliverable</strong>k6 load-тест для API Pet-проєкту з HTML-звітом</div>
+          </div>
+          <div class="meeting-badge">Зустріч 6</div>
+        </div>
+        <div class="meeting-card">
+          <div class="meeting-num">07</div>
+          <div>
+            <div class="meeting-title">OWASP Top 10 на практиці</div>
+            <div class="meeting-desc">Автоматизоване DAST-сканування через інтеграцію Playwright + OWASP ZAP. Від теорії до реальних автоматизованих перевірок вразливостей.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Playwright + ZAP pipeline, що автоматично виявляє вразливості OWASP</div>
+          </div>
+          <div class="meeting-badge">Зустріч 7</div>
+        </div>
+        <div class="meeting-card">
+          <div class="meeting-num">08</div>
+          <div>
+            <div class="meeting-title">CI/CD для повного стеку</div>
+            <div class="meeting-desc">Як запустити Playwright та k6 в одному пайплайні (GitHub Actions / GitLab CI). Автоматична генерація звітів. Сповіщення про падіння.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Єдиний CI/CD pipeline: E2E + Performance + Security в одному запуску</div>
+          </div>
+          <div class="meeting-badge">Зустріч 8</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage IV -->
+    <div class="stage s4">
+      <div class="stage-header">
+        <div class="stage-num">4</div>
+        <div>
+          <span class="stage-label">Блок четвертий</span>
+          <div class="stage-name">Фіналізація та Senior-чек</div>
+        </div>
+      </div>
+      <div class="meetings">
+        <div class="meeting-card">
+          <div class="meeting-num">09</div>
+          <div>
+            <div class="meeting-title">Code Review Pet-проєкту ментором</div>
+            <div class="meeting-desc">Глибокий аудит коду: архітектурні рішення, читабельність, підтримуваність. Оптимізація підходів. Gap-аналіз до Senior-рівня.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Відрефакторений Pet-проєкт + список точок росту</div>
+          </div>
+          <div class="meeting-badge">Зустріч 9</div>
+        </div>
+        <div class="meeting-card">
+          <div class="meeting-num">10</div>
+          <div>
+            <div class="meeting-title">Імітація Senior-співбесіди</div>
+            <div class="meeting-desc">Як "продати" свій досвід із залізом, безпекою та навантаженням. Підготовка відповідей на архітектурні питання. Roadmap на наступні 6 місяців.</div>
+            <div class="deliverable"><strong>Deliverable</strong>Готовність до Senior-інтерв'ю та план самостійного розвитку</div>
+          </div>
+          <div class="meeting-badge">Зустріч 10</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="section-title">Питання на першу зустріч</div>
+  <div class="questions-grid">
+    <div class="q-card">
+      <div class="q-num">Q1</div>
+      <div class="q-topic">Архітектура</div>
+      <div class="q-text">Як краще організувати структуру папок, щоб Python-код був ізольований від .robot файлів, але легко імпортувався?</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q2</div>
+      <div class="q-topic">Best Practices</div>
+      <div class="q-text">Яких антипатернів у написанні Custom Libraries варто уникати на старті?</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q3</div>
+      <div class="q-topic">Pet-проєкт</div>
+      <div class="q-text">Чи зможемо побудувати навчання так, щоб Playwright, k6 та OWASP не йшли окремо, а доповнювали архітектурний підхід?</div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q4</div>
+      <div class="q-topic">Hardware</div>
+      <div class="q-text">Чи є досвід тестування залізного рівня, і які Python-бібліотеки вважаються стандартом для embedded/hardware інтеграцій?</div>
+    </div>
+  </div>
+
+  <!-- GOALS -->
+  <div class="section-title">Глобальні цілі на рік</div>
+  <div class="goals-row">
+    <div class="goal-card">
+      <div class="goal-icon">📈</div>
+      <div class="goal-title">Senior Market Rate</div>
+      <div class="goal-desc">Підвищення ринкової вартості до рівня Senior QA Automation Engineer. Цільовий приріст чеку +30–50%.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">🔐</div>
+      <div class="goal-title">Security + Performance</div>
+      <div class="goal-desc">Практичний досвід OWASP ZAP DAST-сканування та k6 навантажувального тестування — як частина єдиного CI/CD pipeline.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">🏅</div>
+      <div class="goal-title">Freelance-готовність</div>
+      <div class="goal-desc">Pet-проєкт на Playwright (TypeScript) як портфоліо для фрілансу. Готовність брати проєкти будь-якої складності: Desktop, Web, Embedded.</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-title">Резюме плану</div>
+  <div class="summary-block">
+    <div class="summary-left">
+      <div class="summary-name">Tetiana</div>
+      <div class="summary-role">Middle → Senior Test Automation Engineer</div>
+      <div class="summary-tags">
+        <span class="stag">Robot Framework</span>
+        <span class="stag">Python</span>
+        <span class="stag">Playwright</span>
+        <span class="stag">TypeScript</span>
+        <span class="stag">k6</span>
+        <span class="stag">OWASP</span>
+        <span class="stag">Desktop</span>
+        <span class="stag">CI/CD</span>
+      </div>
+    </div>
+    <div class="summary-right">
+      <div class="summary-stat">
+        <div class="sstat-val">10</div>
+        <div class="sstat-label">зустрічей</div>
+      </div>
+      <div class="summary-stat">
+        <div class="sstat-val">4</div>
+        <div class="sstat-label">блоки</div>
+      </div>
+      <div class="summary-stat">
+        <div class="sstat-val">3</div>
+        <div class="sstat-label">місяці</div>
+      </div>
+      <div class="summary-stat">
+        <div class="sstat-val">+50%</div>
+        <div class="sstat-label">цільовий чек</div>
+      </div>
+    </div>
+    <div class="summary-desc">
+      Починаємо з кастомних <strong>Python-бібліотек</strong> та Desktop/Hardware — як основи поточної роботи. Паралельно будуємо Pet-проєкт на <strong>Playwright (TypeScript)</strong>, де практикуємо <strong>k6</strong> для навантажувального тестування та <strong>OWASP ZAP</strong> для security. Усе зав'язуємо в єдиний <strong>CI/CD pipeline</strong> і закриваємо фінальною імітацією Senior-співбесіди.
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span>Senior QA Path · Mentorship Plan 2026</span>
+  <span>Python · Robot Framework · Playwright · TypeScript · k6 · OWASP</span>
+</footer>
+
+</body>
+</html>
